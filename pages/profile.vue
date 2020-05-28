@@ -81,6 +81,9 @@ import { mapGetters } from 'vuex'
 
 export default {
 
+  // https://auth.nuxtjs.org/guide/middleware.html
+  // Restricting the profile page to only logged in users
+  middleware: 'auth',
   data () {
     return {
       name: '',

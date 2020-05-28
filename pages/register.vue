@@ -71,7 +71,7 @@
               </div>
             </div>
             <div class="control">
-              <button type="submit" class="button is-primary is-fullwidth">
+              <button type="submit" class="button is-info is-fullwidth">
                 Register
               </button>
             </div>

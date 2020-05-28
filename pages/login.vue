@@ -12,30 +12,24 @@
           <form method="post" @submit.prevent="login">
             <div class="field">
               <label class="label">Username</label>
-              <div class="control">
-                <input
-                  v-model="username"
-                  type="text"
-                  class="input"
-                  name="username"
-                  required
-                >
+              <div class="control has-icons-left has-icons-right">
+                <input v-model.trim="username" class="input is-medium" type="text" placeholder="Enter username">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user" />
+                </span>
               </div>
             </div>
             <div class="field">
               <label class="label">Password</label>
-              <div class="control">
-                <input
-                  v-model="password"
-                  type="password"
-                  class="input"
-                  name="password"
-                  required
-                >
+              <div class="control has-icons-left has-icons-right">
+                <input v-model.trim="password" class="input is-medium" type="text" placeholder="Enter password">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock" />
+                </span>
               </div>
             </div>
             <div class="control">
-              <button type="submit" class="button is-primary is-fullwidth">
+              <button type="submit" class="button is-info is-medium is-fullwidth">
                 Log In
               </button>
             </div>

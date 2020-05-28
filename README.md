@@ -1,6 +1,6 @@
 # nuxt-auth-app1
 
-> My perfect Nuxt.js project
+Implementing Authentication in a Nuxt.js App using [`mevn-auth-api`](https://github.com/palashmon/mevn-auth-api).
 
 ## Build Setup
 

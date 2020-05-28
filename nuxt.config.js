@@ -14,7 +14,8 @@ module.exports = {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css' }
     ]
   },
   /*
@@ -46,14 +47,30 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/auth'
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: 'http://127.0.0.1:3000/api'
   },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          register: { url: '/users/register', method: 'post' },
+          login: { url: '/users/login', method: 'post' },
+          profile: { url: '/users/profile', method: 'get' },
+          logout: false
+        }
+      }
+    }
+  },
+
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
@@ -84,5 +101,8 @@ module.exports = {
     */
     extend (config, ctx) {
     }
+  },
+  server: {
+    port: 3002 // default: 3000
   }
 }

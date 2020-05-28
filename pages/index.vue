@@ -1,17 +1,11 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      Hello World!
-    </v-flex>
-  </v-layout>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">
+        Nuxt Auth
+      </h1>
+    </div>
+  </section>
 </template>
 
 <script>

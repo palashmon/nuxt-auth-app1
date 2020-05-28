@@ -22,7 +22,7 @@
             <div class="field">
               <label class="label">Password</label>
               <div class="control has-icons-left has-icons-right">
-                <input v-model.trim="password" class="input is-medium" type="text" placeholder="Enter password">
+                <input v-model.trim="password" class="input is-medium" type="password" placeholder="Enter password">
                 <span class="icon is-small is-left">
                   <i class="fas fa-lock" />
                 </span>
@@ -51,6 +51,7 @@
 import Notification from '~/components/Notification'
 
 export default {
+  middleware: 'guest',
   components: {
     Notification
   },

@@ -22,7 +22,7 @@
                 My Profile
               </nuxt-link>
               <hr class="navbar-divider">
-              <a class="navbar-item">Logout</a>
+              <a class="navbar-item" @click="logout">Logout</a>
             </div>
           </div>
           <template v-else>
@@ -45,6 +45,15 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters(['isAuthenticated', 'loggedInUser'])
+  },
+
+  methods: {
+    async logout () {
+      // We call the logout() of the Auth module.
+      // This will simply delete the user’s token from localstorage
+      // and redirect the user to the homepage.
+      await this.$auth.logout()
+    }
   }
 }
 </script>

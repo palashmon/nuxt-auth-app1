@@ -118,12 +118,13 @@ export default {
           confirmPassword: this.confirmPassword
         })
 
-        // await this.$auth.loginWith('local', {
-        //   data: {
-        //     email: this.email,
-        //     password: this.password
-        //   }
-        // })
+        // Auto login the user to the app after registration
+        await this.$auth.loginWith('local', {
+          data: {
+            username: this.username,
+            password: this.password
+          }
+        })
 
         this.$router.push('/')
       } catch (err) {
@@ -131,6 +132,7 @@ export default {
           if (err.response.data?.message) {
             this.error = err.response.data.message
           } else {
+            // In case of multiple validation errors use map
             this.error = err.response.data.data.map(({ msg }) => msg).join(', ')
           }
         }

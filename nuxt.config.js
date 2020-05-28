@@ -62,9 +62,8 @@ module.exports = {
     strategies: {
       local: {
         endpoints: {
-          register: { url: '/users/register', method: 'post' },
-          login: { url: '/users/login', method: 'post' },
-          profile: { url: '/users/profile', method: 'get' },
+          login: { url: '/users/login', method: 'post', propertyName: 'data.token' },
+          user: { url: '/users/profile', method: 'get', propertyName: 'user' },
           logout: false
         }
       }

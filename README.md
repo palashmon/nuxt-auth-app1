@@ -39,3 +39,4 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 - If not logged in and user tries to go to `/profile`, they will be redirected to `/login` page automatically.
 - If already logged in and user tries to go to `/register` or `/login` pages, they will be redirected to home `/` page automatically.
 - Implemented the logic to check for the inactivity of the user in our app. If the user is inactive for a period of time, then we automatically log out the user or show a timer first. We can update the timeout value for `IDLE_TIMEOUT` in `.env` file. Right now it set to 30 minutes. So, after 30 minutes a modal will open letting the user know that "Your session is about to expire in 60 seconds"
+- Added client-side form validation using [Vuelidate](https://vuelidate.js.org/) plugin.

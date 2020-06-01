@@ -14,61 +14,81 @@
               <label class="label">Full Name</label>
               <div class="control">
                 <input
-                  v-model.trim="name"
+                  v-model.trim="$v.name.$model"
                   type="text"
                   class="input"
-                  name="name"
-                  required
+                  :class="status($v.name)"
                 >
               </div>
+              <p v-if="$v.name.alphaNum && showErrorLabel($v.name)" class="help is-danger">
+                Full name is required
+              </p>
+              <p v-if="!$v.name.alphaNum && showErrorLabel($v.name)" class="help is-danger">
+                Full name has non-alphanumeric characters.
+              </p>
+              <!-- <pre>{{ $v.name }}</pre> -->
             </div>
             <div class="field">
               <label class="label">Username</label>
               <div class="control">
                 <input
-                  v-model.trim="username"
+                  v-model.trim="$v.username.$model"
                   type="text"
                   class="input"
-                  name="username"
-                  required
+                  :class="status($v.username)"
                 >
               </div>
+              <p v-if="!$v.username.required && showErrorLabel($v.username)" class="help is-danger">
+                Username is required
+              </p>
+              <p v-if="!$v.username.alphaNum && showErrorLabel($v.username)" class="help is-danger">
+                Username has non-alphanumeric characters.
+              </p>
             </div>
             <div class="field">
               <label class="label">Email</label>
               <div class="control">
                 <input
-                  v-model.trim="email"
+                  v-model.trim="$v.email.$model"
                   type="email"
                   class="input"
-                  name="email"
-                  required
+                  :class="status($v.email)"
                 >
               </div>
+              <p v-if="showErrorLabel($v.email)" class="help is-danger">
+                Please enter a valid email, ex - example@domain.com
+              </p>
             </div>
             <div class="field">
               <label class="label">Password</label>
               <div class="control">
                 <input
-                  v-model.trim="password"
+                  v-model.trim="$v.password.$model"
                   type="password"
                   class="input"
-                  name="password"
-                  required
+                  :class="status($v.password)"
                 >
               </div>
+              <p v-if="!$v.password.required && showErrorLabel($v.password)" class="help is-danger">
+                Password is required
+              </p>
+              <p v-if="!$v.password.minLength && showErrorLabel($v.password)" class="help is-danger">
+                Password must have at least {{ $v.password.$params.minLength.min }} letters
+              </p>
             </div>
             <div class="field">
               <label class="label">Confirm Password</label>
               <div class="control">
                 <input
-                  v-model.trim="confirmPassword"
+                  v-model.trim="$v.confirmPassword.$model"
                   type="password"
                   class="input"
-                  name="confirmPassword"
-                  required
+                  :class="status($v.confirmPassword)"
                 >
               </div>
+              <p v-if="!$v.confirmPassword.sameAsPassword && showErrorLabel($v.confirmPassword)" class="help is-danger">
+                Passwords must be identical.
+              </p>
             </div>
             <div class="control">
               <button type="submit" class="button is-info is-fullwidth">
@@ -89,6 +109,8 @@
 </template>
 
 <script>
+import { validationMixin } from 'vuelidate'
+import { required, minLength, email, alphaNum, sameAs } from 'vuelidate/lib/validators'
 import Notification from '~/components/Notification'
 
 export default {
@@ -96,7 +118,7 @@ export default {
   components: {
     Notification
   },
-
+  mixins: [validationMixin],
   data () {
     return {
       name: '',
@@ -108,9 +130,37 @@ export default {
     }
   },
 
+  validations: {
+    name: {
+      required,
+      minLength: minLength(1),
+      alphaNum
+    },
+    username: {
+      required,
+      minLength: minLength(1),
+      alphaNum
+    },
+    email: {
+      required,
+      email
+    },
+    password: {
+      required,
+      minLength: minLength(4)
+    },
+    confirmPassword: {
+      sameAsPassword: sameAs('password')
+    }
+  },
+
   methods: {
     async register () {
       try {
+        this.$v.$touch()
+        if (this.$v.$invalid) { return }
+
+        this.$nuxt.$loading.start()
         await this.$axios.post('/users/register', {
           name: this.name,
           username: this.username,
@@ -127,8 +177,10 @@ export default {
           }
         })
 
+        this.$nuxt.$loading.finish()
         this.$router.push('/')
       } catch (err) {
+        this.$nuxt.$loading.finish()
         if (!err?.response?.data?.status) {
           if (err.response.data?.message) {
             this.error = err.response.data.message
@@ -138,6 +190,15 @@ export default {
           }
         }
       }
+    },
+
+    status (validation) {
+      return {
+        'is-danger': validation.$dirty && validation.$error
+      }
+    },
+    showErrorLabel (validation) {
+      return validation.$dirty && validation.$error
     }
   }
 }

@@ -25,7 +25,7 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#209cee' },
   /*
   ** Global CSS
   */
@@ -36,6 +36,7 @@ module.exports = {
   */
   plugins: [
     '~plugins/modal/index.js',
+    { src: '~plugins/vuelidate.js', ssr: false },
     { src: '~plugins/vue-idle.js', ssr: false }
   ],
   /*

@@ -6,7 +6,6 @@
           <h2 class="title has-text-centered">
             My Profile
           </h2>
-
           <div class="field is-horizontal">
             <div class="field-label is-normal">
               <label class="label">Full Name</label>
@@ -102,6 +101,5 @@ export default {
     this.username = this.loggedInUser.username
     this.email = this.loggedInUser.email
   }
-
 }
 </script>

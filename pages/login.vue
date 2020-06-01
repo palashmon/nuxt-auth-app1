@@ -58,8 +58,8 @@ export default {
 
   data () {
     return {
-      username: '',
-      password: '',
+      username: 'testuser1',
+      password: '123456',
       error: null
     }
   },

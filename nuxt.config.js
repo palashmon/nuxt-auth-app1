@@ -1,4 +1,5 @@
 const colors = require('vuetify/es5/util/colors').default
+require('dotenv').config()
 
 module.exports = {
   mode: 'universal',
@@ -34,6 +35,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~plugins/modal/index.js',
+    { src: '~plugins/vue-idle.js', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -58,7 +61,7 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: 'http://127.0.0.1:3000/api'
+    baseURL: process.env.BASE_API_URL
   },
 
   auth: {
